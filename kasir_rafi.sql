@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2024 at 08:59 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Waktu pembuatan: 26 Feb 2024 pada 00.49
+-- Versi server: 10.4.25-MariaDB
+-- Versi PHP: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,27 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Struktur dari tabel `admin`
 --
 
 CREATE TABLE `admin` (
-  `no` int(4) NOT NULL,
   `nama` varchar(30) NOT NULL,
   `username` varchar(30) NOT NULL,
-  `password` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `password` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `admin`
+-- Dumping data untuk tabel `admin`
 --
 
-INSERT INTO `admin` (`no`, `nama`, `username`, `password`) VALUES
-(1, 'gendut', 'rafi', 'rafi123');
+INSERT INTO `admin` (`nama`, `username`, `password`) VALUES
+('rafi', 'rafi', 'rafi1234');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_penjualan`
+-- Struktur dari tabel `detail_penjualan`
 --
 
 CREATE TABLE `detail_penjualan` (
@@ -53,45 +52,45 @@ CREATE TABLE `detail_penjualan` (
   `ProdukID` int(3) NOT NULL,
   `JumlahProduk` int(11) NOT NULL,
   `SubTotal` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `detail_penjualan`
+-- Dumping data untuk tabel `detail_penjualan`
 --
 
 INSERT INTO `detail_penjualan` (`DetailID`, `PenjualanID`, `ProdukID`, `JumlahProduk`, `SubTotal`) VALUES
-(55566, 1221, 131, 2, 1200000),
-(55567, 1222, 133, 3, 1050000),
-(55568, 1222, 135, 2, 600000),
-(55569, 1224, 134, 4, 2000000),
-(55570, 1225, 134, 3, 1500000);
+(55566, 1221, 131, 2, 12000),
+(55567, 1222, 133, 3, 10500),
+(55568, 1222, 135, 2, 6000),
+(55569, 1224, 134, 4, 20000),
+(55570, 1225, 134, 3, 15000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `penjualan`
+-- Struktur dari tabel `penjualan`
 --
 
 CREATE TABLE `penjualan` (
   `PenjualanID` int(4) NOT NULL,
   `TanggalPenjualan` date NOT NULL,
   `TotalHarga` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `penjualan`
+-- Dumping data untuk tabel `penjualan`
 --
 
 INSERT INTO `penjualan` (`PenjualanID`, `TanggalPenjualan`, `TotalHarga`) VALUES
-(1221, '2024-01-13', 1200000),
-(1222, '2024-02-01', 1050000),
+(1221, '2024-01-13', 12000),
+(1222, '2024-02-01', 16500),
 (1224, '2024-02-15', 20000),
-(1225, '2024-02-20', 1500000);
+(1225, '2024-02-20', 15000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produk`
+-- Struktur dari tabel `produk`
 --
 
 CREATE TABLE `produk` (
@@ -99,56 +98,75 @@ CREATE TABLE `produk` (
   `NamaProduk` varchar(30) NOT NULL,
   `Harga` int(11) NOT NULL,
   `Stok` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `produk`
+-- Dumping data untuk tabel `produk`
 --
 
 INSERT INTO `produk` (`ProdukID`, `NamaProduk`, `Harga`, `Stok`) VALUES
-(131, 'Minute Maid', 600000, 10),
-(132, 'ABC Coffe', 400000, 12),
-(133, 'Teh Pucuk', 350000, 8),
-(134, 'Fruit Tea', 500000, 5),
-(135, 'Floridina', 300000, 15);
+(131, 'Minute Maid', 6000, 10),
+(132, 'ABC Coffe', 4000, 12),
+(133, 'Teh Pucuk', 3500, 8),
+(134, 'Fruit Tea', 5000, 5),
+(135, 'Floridina', 3000, 15);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `detail_penjualan`
+-- Indeks untuk tabel `admin`
 --
-ALTER TABLE `detail_penjualan`
-  ADD PRIMARY KEY (`DetailID`);
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`username`);
 
 --
--- Indexes for table `penjualan`
+-- Indeks untuk tabel `detail_penjualan`
+--
+ALTER TABLE `detail_penjualan`
+  ADD PRIMARY KEY (`DetailID`),
+  ADD KEY `PenjualanID` (`PenjualanID`,`ProdukID`),
+  ADD KEY `ProdukID` (`ProdukID`);
+
+--
+-- Indeks untuk tabel `penjualan`
 --
 ALTER TABLE `penjualan`
   ADD PRIMARY KEY (`PenjualanID`);
 
 --
--- Indexes for table `produk`
+-- Indeks untuk tabel `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`ProdukID`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `penjualan`
+-- AUTO_INCREMENT untuk tabel `detail_penjualan`
 --
-ALTER TABLE `penjualan`
-  MODIFY `PenjualanID` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1226;
+ALTER TABLE `detail_penjualan`
+  MODIFY `DetailID` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55582;
 
 --
--- AUTO_INCREMENT for table `produk`
+-- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `ProdukID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+  MODIFY `ProdukID` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `detail_penjualan`
+--
+ALTER TABLE `detail_penjualan`
+  ADD CONSTRAINT `detail_penjualan_ibfk_1` FOREIGN KEY (`PenjualanID`) REFERENCES `penjualan` (`PenjualanID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `detail_penjualan_ibfk_2` FOREIGN KEY (`ProdukID`) REFERENCES `produk` (`ProdukID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
